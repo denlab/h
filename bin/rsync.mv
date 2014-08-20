@@ -1,0 +1,21 @@
+#!/bin/sh -xe
+
+rsync                     \
+    --info=all2           \
+    --human-readable      \
+    --recursive           \
+    --partial             \
+    --remove-source-files \
+    $*
+
+
+
+# rsync                     \
+#     --info=all2           \
+#     --verbose             \
+#     --progress            \
+#     --human-readable      \
+#     --recursive           \
+#     --partial             \
+#     --remove-source-files \
+#     $*
