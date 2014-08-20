@@ -1,3 +1,47 @@
 #!/bin/sh -xe
 
 echo "[ $(date) ] - It's alive !"
+
+H_DIR=$HOME/.h/h
+cd $HOME
+mkdir -p .h
+cd .h
+
+doWithCheck() {
+    ACTION_LABEL="$1"
+    ACTION_CMD="$2"
+    ACTION_CHECK="$3"
+    if "$ACTION_CHECK"
+    then
+        echo "$ACTION_LABEL : Already OK : Nothing to do"
+    else
+        "$ACTION_CMD"
+        if "$ACTION_CHECK"
+        then
+            echo "$ACTION_LABEL : OK"
+        else
+            echo "Something is wrong!"
+            echo "    Was expecting: $ACTION_LABEL"
+            echo "    Exiting now "
+            exit 1
+        fi
+    fi
+}
+
+REPO_URL="git@github.com:denlab/h.git"
+REPO_DIR="$H_DIR"
+doWithCheck                         \
+    "Clone $REPO_URL in $REPO_DIR"  \
+    "git clone $REPO_URL $REPO_DIR" \
+    "[ -d $REPO_DIR ]"
+
+exit 1
+
+H_PATH_LINE='export PATH=$HOME/.h/h/bin:$PATH'
+H_PATH_LINE_REGEX='^'"$H_PATH_LINE"'$'
+SH_FILE="$HOME/.bashrc"
+
+doWithCheck                         \
+    "$SH_FILE has $H_PATH_LINE"     \
+    "echo $H_PATH_LINE >> $SH_FILE" \
+    "grep $H_PATH_LINE_REGEX $SH_FILE"
