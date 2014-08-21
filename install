@@ -16,12 +16,13 @@ doWithCheck() {
         echo "$ACTION_LABEL : Already OK : Nothing to do"
     else
         $ACTION_CMD
-        if $ACTION_CHECK
+        ACTION_CHECK_RESULT=$($ACTION_CHECK)
+        if $ACTION_CHECK_RESULT
         then
             echo "$ACTION_LABEL : OK"
         else
-            echo "Something is wrong!"
-            echo "    Was expecting: $ACTION_LABEL"
+            echo "Something was wrong when doing $ACTION_LABEL"
+            echo "    Was expecting: $ACTION_CHECK to return a 0 value. But was $ACTION_CHECK_RESULT."
             echo "    Exiting now "
             exit 1
         fi
@@ -40,17 +41,20 @@ doWithCheck_example() {
 REPO_URL="git@github.com:denlab/h.git"
 REPO_DIR="$H_DIR"
 doWithCheck                         \
-    "Clone $REPO_URL in $REPO_DIR"  \
+    "Clone repo"                    \
     "git clone $REPO_URL $REPO_DIR" \
     "[ -d $REPO_DIR ]"
-
-exit 1
 
 H_PATH_LINE='export PATH=$HOME/.h/h/bin:$PATH'
 H_PATH_LINE_REGEX='^'"$H_PATH_LINE"'$'
 SH_FILE="$HOME/.bashrc"
+set -x
+# doWithCheck                             \
+#     "Add to PATH"                       \
+#     'echo '"$H_PATH_LINE" >> "$SH_FILE" \
+#     'grep '"$H_PATH_LINE_REGEX"' '"$SH_FILE"
 
-doWithCheck                         \
-    "$SH_FILE has $H_PATH_LINE"     \
-    "echo $H_PATH_LINE >> $SH_FILE" \
-    "grep $H_PATH_LINE_REGEX $SH_FILE"
+actionCmd() {
+    echo "$H_PATH_LINE" >> "$SH_FILE"
+}
+doWithCheck 'Add to PATH' actionCmd actionCheck
