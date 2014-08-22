@@ -1,9 +1,14 @@
 #!/bin/sh -xe
 
+evalStr() {
+    TO_RUN="$1"
+    echo "$TO_RUN" | sh
+}
+
 runFn1() {
     TO_RUN="$1"
     echo "- Running: $TO_RUN"
-    # eval $TO_RUN
+    evalStr "$TO_RUN"
     echo "$TO_RUN" | sh
 }
 
@@ -21,12 +26,16 @@ runFn_test() {
     runFn "(ls -a | tee -a /tmp/t) && wc -l /tmp/t"
     runFn "[ -d /tmp ]"
     runFn "echo > /tmp/t && wc -l /tmp/t"
-    runFn " (echo > /tmp/t) && [ 1 = $(wc -l /tmp/t | cut -d' ' -f1) ]"
+    runFn "(echo > /tmp/t) && [ 1 = $(wc -l /tmp/t | cut -d' ' -f1) ]"
+    X=1
+    runFn "[ $X = 1 ]"
 }
 
 runFn() { runFn1 "$*" ;}
 runFn_test
 runFn() { runFn2 "$*" ;}
+runFn_test
+runFn() { evalStr "$*" ;}
 runFn_test
 
 set +x
