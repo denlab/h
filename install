@@ -1,4 +1,18 @@
-#!/bin/sh -e
+#!/bin/sh -xe
+
+runFn() {
+    TO_RUN="$1"
+    echo "- Running: $TO_RUN"
+    # eval $TO_RUN
+    echo "$TO_RUN" | sh
+}
+
+runFn ls
+runFn "ls -a"
+runFn "ls -a && ls"
+runFn "(ls -a | tee -a /tmp/t) && wc -l /tmp/t"
+
+exit 1
 
 echo "[ $(date) ] - It's alive !"
 

@@ -1,0 +1,34 @@
+#!/bin/sh -xe
+
+runFn1() {
+    TO_RUN="$1"
+    echo "- Running: $TO_RUN"
+    # eval $TO_RUN
+    echo "$TO_RUN" | sh
+}
+
+runFn2() {
+    TO_RUN="$1"
+    echo "- Running: $TO_RUN"
+    # eval $TO_RUN
+    eval "$TO_RUN"
+}
+
+
+runFn_test() {
+    runFn ls
+    runFn "ls -a"
+    runFn "ls -a && ls"
+    runFn "(ls -a | tee -a /tmp/t) && wc -l /tmp/t"
+    runFn "[ -d /tmp ]"
+}
+
+runFn() { runFn1 "$*" ;}
+runFn_test
+runFn() { runFn2 "$*" ;}
+runFn_test
+
+set +x
+echo
+echo "    All OK"
+echo
