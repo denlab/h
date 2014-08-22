@@ -14,13 +14,14 @@ runFn2() {
     eval "$TO_RUN"
 }
 
-
 runFn_test() {
     runFn ls
     runFn "ls -a"
     runFn "ls -a && ls"
     runFn "(ls -a | tee -a /tmp/t) && wc -l /tmp/t"
     runFn "[ -d /tmp ]"
+    runFn "echo > /tmp/t && wc -l /tmp/t"
+    runFn " (echo > /tmp/t) && [ 1 = $(wc -l /tmp/t | cut -d' ' -f1) ]"
 }
 
 runFn() { runFn1 "$*" ;}
