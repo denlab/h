@@ -1,8 +1,8 @@
 #!/usr/bin/env nodejs
 
-console.log('hello world');
+// console.log('hello world');
 
-var logEnabled=true;
+var logEnabled=false;
 
 var log = function(x) {
     if (!logEnabled) {

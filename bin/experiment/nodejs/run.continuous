@@ -1,13 +1,14 @@
 #!/bin/sh -e
 
-DATA='[{"name": "denis" , "xp": 10000},
-       {"name": "anneso", "xp": 666}
-]'
+BIN=./json.prettify.run
+
 while true
 do
-    date
-    echo "DATA=$DATA"
-    echo "$DATA" | ./yourscript -x -y -z
+    echo "\t\t $(date)"
     echo
-    sleep 2
+    $BIN
+    echo
+    echo
+    echo
+    sleep 1
 done
