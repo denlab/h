@@ -4,6 +4,10 @@ cd $H_HOME
 
 . bin/common
 
+./test/test.eval
+
+
+
 runFn1() {
     TO_RUN="$1"
     echo "- Running: $TO_RUN"
