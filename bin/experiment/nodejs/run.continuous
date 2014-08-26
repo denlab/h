@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+DATA='[{"name": "denis" , "xp": 10000},
+       {"name": "anneso", "xp": 666}
+]'
+while true
+do
+    date
+    echo "DATA=$DATA"
+    echo "$DATA" | ./yourscript -x -y -z
+    echo
+    sleep 2
+done
