@@ -4,9 +4,7 @@ cd $H_HOME
 
 . bin/common
 
-./test/test.eval
-
-
+./test/eval.test
 
 runFn1() {
     TO_RUN="$1"
