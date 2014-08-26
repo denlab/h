@@ -1,8 +1,12 @@
 #!/bin/sh -xe
 
+cd $H_HOME
+
+#. common
+
 evalStr() {
     TO_RUN="$1"
-    echo "$TO_RUN" | sh
+    eval "$TO_RUN"
 }
 
 runFn1() {
