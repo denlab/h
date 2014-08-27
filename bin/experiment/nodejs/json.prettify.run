@@ -7,4 +7,5 @@ DATA='[{"name": "denis" , "xp": 10000},
 ]'
 
 echo "INPUT=$DATA"
-echo "$DATA" | $BIN -x -y -z | grep -C9999 --color=always name
+
+ echo "$DATA" | $BIN -x -y -z | grep -C9999 --color=always name

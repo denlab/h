@@ -2,7 +2,7 @@
 
 // console.log('hello world');
 
-var logEnabled=false;
+var logEnabled=false ;
 
 var log = function(x) {
     if (!logEnabled) {
