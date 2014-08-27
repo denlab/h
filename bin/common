@@ -1,0 +1,4 @@
+evalStr() {
+    TO_RUN="$1"
+    eval "$TO_RUN"
+}
