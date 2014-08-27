@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+BIN=./json.prettify
+
+DATA='[{"name": "denis" , "xp": 10000},
+       {"name": "anneso", "xp": 666}
+]'
+
+echo "INPUT=$DATA"
+
+ echo "$DATA" | $BIN -x -y -z | grep -C9999 --color=always name

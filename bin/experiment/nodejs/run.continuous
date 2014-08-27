@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+BIN=./json.prettify.run
+
+while true
+do
+    echo "\t\t $(date)"
+    echo
+    $BIN
+    echo
+    echo
+    echo
+    sleep 1
+done
