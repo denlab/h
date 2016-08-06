@@ -1,3 +1,0 @@
-#!/bin/sh -xe
-
-ls --time-style=long-iso --color=always -altrhGb $1
